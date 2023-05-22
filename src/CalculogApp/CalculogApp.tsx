@@ -5,11 +5,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { PEAnsprops, PEinputsValidity, PEprops, TMAnsprops, TMinputsValidity, TMprops, defaultPEValidity, defaultTMValidity } from './types';
 import { checkPEVals, checkTMVals } from './checkers';
 import { defaultPEAns, defaultPEVals, defaultTMAns, defaultTMVals } from './constants';
-import { markEnums, roundingchopping } from './enums';
+import { markEnums } from './enums';
 import pe, { pe2 } from './solvers/pe';
 import { useEffect, useRef, useState } from 'react'
 
-import BottomToolbar from './components/BottomToolbar';
 import Header from './components/Header';
 import Keyboard from "react-simple-keyboard"
 import PEInput from './components/Inputs/PEInput';
@@ -156,23 +155,6 @@ function CalculogApp() {
     )
   }
 
-  const KBAV = () => {
-    return (
-      <Keyboard
-        keyboardRef={r => (keyboard.current = r)}
-        onChange={input => handleKBPEChange(input)}
-        theme={"hg-theme-default hg-layout-default myTheme"}
-        layout={{
-          default: [
-            // "1 2 3 4 5 6 7 8 9 0",
-            "π ℯ log(x) sqrt(x) (x/y)",
-            "+ - * / , . ( [ ] )"
-          ],
-        }}
-      />
-    )
-  }
-
   return (
     <div className="App container d-flex flex-column justify-content-between">
       <div className="row">
@@ -213,6 +195,7 @@ function CalculogApp() {
 
 export default CalculogApp
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const convertToSymbols = (input: string) => {
   return input.replace(/pi|e/gi, (match: string) => {
     if (match.toLowerCase() === "pi") {
@@ -224,6 +207,7 @@ export const convertToSymbols = (input: string) => {
   })
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const convertFromSymbols = (input:string) => {
   return input.replace(/π|ℯ/gi, (match: string) => {
     if (match.toLowerCase() === "π") {

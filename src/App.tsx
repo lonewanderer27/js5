@@ -126,7 +126,7 @@ export default function App() {
     } else {
       setPage(pathname.split("/")[1] as Page)
     }
-  }, [])
+  }, [pathname])
 
   return (
     <>
@@ -247,7 +247,6 @@ export default function App() {
                   </div>
 
                   <div className="text-start">
-                    {hoveredCalculator !== HoverCalculators.None &&
                     <SlideFade in={hoveredCalculator !== HoverCalculators.None} offsetY="50px"> 
                         <Heading size="md" color="white">
                           {hoveredCalculator === HoverCalculators.Calculog && "Machine Problem 1: Calculog"}
@@ -261,7 +260,7 @@ export default function App() {
                           {hoveredCalculator === HoverCalculators.Polaris && "Ready to determine crypto exchange value over time? Then check out Polaris!"}
                           {hoveredCalculator === HoverCalculators.Mantarie && "Ready to see the value of a definite integral? Then check out Mantarie!"}
                         </Text>
-                    </SlideFade>}
+                    </SlideFade>
                     {hoveredCalculator === HoverCalculators.None && 
                     <SlideFade in={hoveredCalculator === HoverCalculators.None}>
                       <Heading color="whitesmoke" fontSize="lg">

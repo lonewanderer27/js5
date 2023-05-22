@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { methodTypeEnums, tableMethodTypeEnums } from './enums';
 
 import About from './About';
