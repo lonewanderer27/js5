@@ -1,0 +1,7 @@
+@tailwind utilities;
+
+
+#root {
+  margin: 0 auto;
+  background: white;
+}

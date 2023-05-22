@@ -1,0 +1,19 @@
+.submitBtn {
+  background-color: #ffb340;
+  color: #333333;
+}
+
+.removeBtn {
+  background-color: #ff4b40;
+  color: #f5f5f5;
+}
+
+.backBtn {
+  background-color: #bd95ff;
+  color: #333333;
+}
+
+.removeBtn, .submitBtn, .backBtn {
+  border: 1px solid black;
+  font-weight: 700;
+}

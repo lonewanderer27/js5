@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
+
+
+/* #root, .App {
+    width: 100vw;
+    height: 100vh;
+    /* background: #0B0B0C; 
+} */
+
+/* body{
+    /* background: #0B0B0C;
+    width: 100vw;
+    margin: 0;
+} */
+
+/* #root {
+    margin: 0;
+    text-align: center;
+} */
+
+.sb{
+    width: 100%;
+    height: 100vh;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.sb-inner{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    color: whitesmoke;
+    font-family: 'Inter', sans-serif;
+
+    width: 95%;
+    height: 97%;
+    background: #0E0E10;
+    
+    border: 2px solid #00B2FF;
+    border-radius: 20px;
+
+    padding: 20px 30px 20px 30px;
+}
+
+.sb-i-main {
+    text-align: left;
+    width: 100%;
+    min-height: 25vh;
+}
+
+/* 
+.sb-i-up-logo{
+    width: 100%;
+    height: 75vh;
+} */
+
+.sb-i-up{
+    text-align: left;
+    width: 100%;
+    min-height: 25vh;
+    margin: 5px 0px;
+}
+
+.sb-i-middle {
+    text-align: left;
+    width: 100%;
+    min-height: 25vh;
+}
+
+.sb-i-down{
+    text-align: left;
+    width: 100%;
+    min-height: 25vh;
+}
+
+.sb-i-up-title {
+    font-family: Inter;
+    font-weight: 700;
+}
+
+.sb-i-up-desc {
+    font-family: Inter;
+    font-size: 15px;
+}
