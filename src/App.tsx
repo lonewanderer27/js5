@@ -21,7 +21,8 @@ import {
   Text,
   VStack,
   useDisclosure,
-  Box
+  Alert,
+  AlertIcon
 } from '@chakra-ui/react'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import { HoverCalculators, Page } from './enums'
@@ -39,6 +40,10 @@ const RootifyApp = lazy(() => import("./RootifyApp/RootifyApp"));
 
 // theme the main app
 const theme = extendTheme({
+  fonts: {
+    primary: "JetBrains Mono",
+    secondary: "Inter, sans-serif",
+  },
   styles: {
     global: {
       body: {
@@ -48,6 +53,13 @@ const theme = extendTheme({
       },
     },
   },
+  components: {
+    Text: {
+      baseStyle: {
+        fontFamily: "secondary"
+      }
+    },
+  }
 });
 
 export default function App() {
@@ -119,6 +131,11 @@ export default function App() {
   return (
     <>
       <ChakraProvider theme={theme}>     
+        {(page !== Page.About && page !== Page.Home) && 
+        <Alert status='info'>
+            <AlertIcon />
+            To go back to the home screen, press the escape key or the "p" key.
+        </Alert>}
         <Modal isCentered isOpen={isOpen} onClose={onClose}>
           {overlay}
           <ModalContent>
@@ -137,24 +154,26 @@ export default function App() {
                 </>}
                 
                 <Button w="100%" onClick={() => goToPage(Page.Calculog)}>
-                  Launch {Page.Calculog}
+                  Open MP1: {Page.Calculog}
                 </Button>
                 <Button w="100%" onClick={() => goToPage(Page.Rootify)}>
-                  Launch {Page.Rootify}
+                  Open MP2: {Page.Rootify}
                 </Button>
                 <Button w="100%" onClick={() => goToPage(Page.Polaris)}>
-                  Launch {Page.Polaris}
+                  Open MP3: {Page.Polaris}
                 </Button>
                 <Button w="100%" onClick={() => goToPage(Page.Mantarie)}>
-                  Launch {Page.Mantarie}
+                  Open MP4: {Page.Mantarie}
                 </Button>
               </VStack>
             </ModalBody>
             <Divider />
             <ModalFooter>
-              <Text>
+              {(page !== Page.Home && page !== Page.About) && (<Text>
                 You are currently at {pathname.split("/")[1].toString()}
-              </Text>
+              </Text>)}
+              {page === Page.Home && (<Text>You are in the Home Screen!</Text>)}
+              {page === Page.About && (<Text>You are in the About Screen!</Text>)}
             </ModalFooter>
           </ModalContent>
         </Modal>
@@ -164,7 +183,7 @@ export default function App() {
           padding={10}
           onChange={(index) => handleTabChange(index)} 
           align="center"
-          variant='soft-rounded'
+          variant="soft-rounded"
           size="lg"
         >
           <TabList>
@@ -175,52 +194,52 @@ export default function App() {
           <TabPanels paddingTop="5">
             <SlideFade in={page === Page.Home} offsetX="200px" offsetY="0">
               <TabPanel>
-                <div className="flex flex-col h-screen">
-                  <div className="flex flex-row gap-4 h-[400px]">
+                <div className="flex flex-col">
+                  <div className="flex flex-row gap-4 h-[380px]" onMouseEnter={() => hoveredCalcChange(HoverCalculators.None)}>
                     <motion.div
-                      className="rounded-3xl border border-white"
+                      className="rounded-3xl border border-white cursor-pointer"
                       animate={{
-                        width: HoverCalculators.Calculog === hoveredCalculator ? "250px" : "200px",
+                        width: HoverCalculators.Calculog === hoveredCalculator ? "350px" : "200px",
                         height: HoverCalculators.Calculog === hoveredCalculator ? "250px" : "200px"
                       }}
                       transition={{ duration: 0.5, type: "spring", bounce: 0.3 }}
-                      style={{backgroundImage: "url(/Calculog.png)", backgroundSize: "cover"}}
+                      style={{backgroundImage: "url(/Calculog.png)", backgroundSize: "cover", backgroundPosition: "center"}}
                       onMouseEnter={() => hoveredCalcChange(HoverCalculators.Calculog)}
                       onMouseLeave={() => hoveredCalcChange(HoverCalculators.None)}
                       onClick={() => goToPage(Page.Calculog)}
                     />
                     <motion.div
-                      className="rounded-3xl border border-white"
+                      className="rounded-3xl border border-white cursor-pointer"
                       animate={{ 
-                        width: HoverCalculators.Rootify === hoveredCalculator ? "250px" : "200px", 
+                        width: HoverCalculators.Rootify === hoveredCalculator ? "350px" : "200px", 
                         height: HoverCalculators.Rootify === hoveredCalculator ? "250px" : "200px" 
                       }}
                       transition={{ duration: 0.5, type: "spring", bounce: 0.3 }}
-                      style={{backgroundImage: "url(/Rootify.png)", backgroundSize: "cover"}}
+                      style={{backgroundImage: "url(/Rootify.png)", backgroundSize: "cover", backgroundPosition: "center"}}
                       onMouseEnter={() => hoveredCalcChange(HoverCalculators.Rootify)}
                       onMouseLeave={() => hoveredCalcChange(HoverCalculators.None)}
                       onClick={() => goToPage(Page.Rootify)}
                     />
                     <motion.div
-                      className="rounded-3xl border border-white"
+                      className="rounded-3xl border border-white cursor-pointer"
                       animate={{
-                        width: HoverCalculators.Polaris === hoveredCalculator ? "250px" : "200px",
+                        width: HoverCalculators.Polaris === hoveredCalculator ? "350px" : "200px",
                         height: HoverCalculators.Polaris === hoveredCalculator ? "250px" : "200px"
                       }}
                       transition={{ duration: 0.5, type: "spring", bounce: 0.3 }}
-                      style={{backgroundImage: "url(/Polaris.png)", backgroundSize: "cover"}}
+                      style={{backgroundImage: "url(/Polaris.png)", backgroundSize: "cover", backgroundPosition: "center"}}
                       onMouseEnter={() => hoveredCalcChange(HoverCalculators.Polaris)}
                       onMouseLeave={() => hoveredCalcChange(HoverCalculators.None)}
                       onClick={() => goToPage(Page.Polaris)}
                     />
                     <motion.div
-                      className="rounded-3xl border border-white"
+                      className="rounded-3xl border border-white cursor-pointer"
                       animate={{
-                        width: HoverCalculators.Mantarie === hoveredCalculator ? "250px" : "200px",
+                        width: HoverCalculators.Mantarie === hoveredCalculator ? "350px" : "200px",
                         height: HoverCalculators.Mantarie === hoveredCalculator ? "250px" : "200px"
                       }}
                       transition={{ duration: 0.5, type: "spring", bounce: 0.3 }}
-                      style={{backgroundImage: "url(/Mantarie.png)", backgroundSize: "cover"}}
+                      style={{backgroundImage: "url(/Mantarie.png)", backgroundSize: "cover", backgroundPosition: "center"}}
                       onMouseEnter={() => hoveredCalcChange(HoverCalculators.Mantarie)}
                       onMouseLeave={() => hoveredCalcChange(HoverCalculators.None)}
                       onClick={() => goToPage(Page.Mantarie)}
@@ -228,23 +247,30 @@ export default function App() {
                   </div>
 
                   <div className="text-start">
+                    {hoveredCalculator !== HoverCalculators.None &&
                     <SlideFade in={hoveredCalculator !== HoverCalculators.None} offsetY="50px"> 
-                        <Heading size="lg" color="white">
+                        <Heading size="md" color="white">
                           {hoveredCalculator === HoverCalculators.Calculog && "Machine Problem 1: Calculog"}
                           {hoveredCalculator === HoverCalculators.Rootify && "Machine Problem 2: Rootify"}
                           {hoveredCalculator === HoverCalculators.Polaris && "Machine Problem 3: Polaris"}
                           {hoveredCalculator === HoverCalculators.Mantarie && "Machine Problem 4: Mantarie"}
                         </Heading>
-                        <Text color="white" fontSize="3xl">
+                        <Text color="white" fontSize="xl">
                           {hoveredCalculator === HoverCalculators.Calculog && "Ready to solve Propagation Error and Taylor-Maclaurin? Then check out Calculog!"}
                           {hoveredCalculator === HoverCalculators.Rootify && "Ready to solve for the roots of a polynomial? Then check out Rootify!"}
                           {hoveredCalculator === HoverCalculators.Polaris && "Ready to determine crypto exchange value over time? Then check out Polaris!"}
                           {hoveredCalculator === HoverCalculators.Mantarie && "Ready to see the value of a definite integral? Then check out Mantarie!"}
                         </Text>
-                    </SlideFade>
+                    </SlideFade>}
+                    {hoveredCalculator === HoverCalculators.None && 
                     <SlideFade in={hoveredCalculator === HoverCalculators.None}>
-                      <Heading color="white" fontSize="3xl">Hover one of the icons above!</Heading>
-                    </SlideFade>
+                      <Heading color="whitesmoke" fontSize="lg">
+                        Hover one of the icons above!<br/>
+                      </Heading>
+                      <Text color="white" fontSize="xl">
+                      Tip: Press the <u>ESC</u> or <u>p</u> to access the Pause Menu while a calculator is opened.
+                      </Text>
+                    </SlideFade>}
                   </div>
 
                 </div>
