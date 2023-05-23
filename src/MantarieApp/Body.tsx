@@ -1,3 +1,4 @@
+import { AnswerType, answerType } from "./types";
 import {
   Button,
   FormControl,
@@ -17,13 +18,13 @@ import {
 } from "@chakra-ui/react";
 import { Modes, functionTypeEnums } from "./enums";
 import React, { useEffect } from "react";
+import { calcBisectionStandard, testBisectionInterval } from "./calculators/bisection";
+import { parser, rationalize } from "mathjs";
 
 import AnswerTable from "./AnswerTable";
 import { GlobalState } from "./MantarieApp";
 import IterationsTable from "./IterationsTable";
 import calculator from "./calculators/calculator";
-import { parser } from "mathjs";
-import { testBisectionInterval } from "./calculators/bisection";
 import { useContext } from "react";
 
 export default function Body() {
@@ -95,21 +96,72 @@ export default function Body() {
     // if the testBisection failed, that means we don't have a root
     // therefore this function is computable for simpson's method
     if (testResults.success == false) {
-      setAnswer(calculator(a, b, n, function_));
-      setShowAnswer(!showAnswer);
+      // but let's check if the answer is infinity
+      const answer: AnswerType = calculator(a, b, n, function_);
+
+      // if it has infinity, then let's get the bisection result
+      let bisectionResults;
+      if (function_.includes("log(x+1)")){
+        bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.LogFunction, "f(x) = "+function_, 999999, 0.000000000000001);
+      } else {
+        bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.AnyFunction, "f(x) = "+function_, 999999, 0.000000000000001)
+      }
+
+      if (answer.ans_si === Infinity || answer.ans_ti === Infinity) {
+        toast({
+          title: `Function is not computable`,
+          description: `f(x) is not defined at ${bisectionResults !== undefined ? bisectionResults.cn : "c"} which is inside [${a}, ${b}]`,
+          variant: "solid",
+          status: "error",
+          isClosable: true,
+          position: "top",
+          size: "lg",
+          containerStyle: {
+            width: "750px"
+          }
+        })
+      } 
+      
+      // everything is really fine!
+      else {
+        setAnswer(calculator(a, b, n, function_));
+        setShowAnswer(!showAnswer);
+      }
     } 
     // otherwise, this function have a root
     // therefore it's not computable
     else {
       console.table(testResults);
-      // alert("This function cannot be computed!");
+
+      const findRoot = true;
+      let bisectionResults: answerType = undefined;
+
+      if (findRoot) {
+        if (function_.includes("log(x+1)")){
+          bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.LogFunction, "f(x) = "+function_, 999999, 0.000000000000001);
+        } else {
+          bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.AnyFunction, "f(x) = "+function_, 999999, 0.000000000000001)
+        }
+
+        console.log(bisectionResults)
+      }
+
+      // const node = rationalize(function_).
+      // const denominator = node.args[1].args[0]
+
+      // console.log(``);
+
       toast({
-        title: `f(x) = ${function_} is not defined at c which is inside [a, b]`,
+        title: `Function is not computable`,
+        description: `f(x) is not defined at ${bisectionResults !== undefined ? bisectionResults.cn : "c"} which is inside [${a}, ${b}]`,
         variant: "solid",
         status: "error",
         isClosable: true,
         position: "top",
-        size: "lg"
+        size: "lg",
+        containerStyle: {
+          width: "750px"
+        }
       })
     }
   }
