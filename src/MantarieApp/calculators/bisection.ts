@@ -248,6 +248,10 @@ export function calcBisectionStandard(
     if (temp_less_than_error) {
       break;
     }
+
+    if (Number.isNaN(temp_d)){
+      break;
+    }
   }
 
   // compute the final answers
