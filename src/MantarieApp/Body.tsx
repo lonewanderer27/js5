@@ -96,10 +96,9 @@ export default function Body() {
     // if the testBisection failed, that means we don't have a root
     // therefore this function is computable for simpson's method
     if (testResults.success == false) {
-      // but let's check if the answer is infinity
+      // but for last time, let's check if the answer is infinity
       const answer: AnswerType = calculator(a, b, n, function_);
 
-      // if it has infinity, then let's get the bisection result
       let bisectionResults;
       if (function_.includes("log(x+1)")){
         bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.LogFunction, "f(x) = "+function_, 999999, 0.000000000000001);
@@ -107,7 +106,8 @@ export default function Body() {
         bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.AnyFunction, "f(x) = "+function_, 999999, 0.000000000000001)
       }
 
-      if (answer.ans_si === Infinity || answer.ans_ti === Infinity) {
+      // if it has infinity, then let's display the c from the last row of bisection result
+      if (answer.ans_si === Infinity || answer.ans_ti === Infinity || isNaN(answer.ans_si) === true || isNaN(answer.ans_ti) === true) {
         toast({
           title: `Function is not computable`,
           description: `f(x) is not defined at ${bisectionResults !== undefined ? bisectionResults.cn : "c"} which is inside [${a}, ${b}]`,
