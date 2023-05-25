@@ -19,12 +19,12 @@ import {
 import { Modes, functionTypeEnums } from "./enums";
 import React, { useEffect } from "react";
 import { calcBisectionStandard, testBisectionInterval } from "./calculators/bisection";
-import { parser, rationalize } from "mathjs";
 
 import AnswerTable from "./AnswerTable";
 import { GlobalState } from "./MantarieApp";
 import IterationsTable from "./IterationsTable";
 import calculator from "./calculators/calculator";
+import { parser } from "mathjs";
 import { useContext } from "react";
 
 export default function Body() {
@@ -103,9 +103,9 @@ export default function Body() {
       if (answer.ans_si === Infinity || answer.ans_ti === Infinity || isNaN(answer.ans_si) === true || isNaN(answer.ans_ti) === true) {
         let bisectionResults;
         if (function_.includes("log(x+1)")){
-          bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.LogFunction, "f(x) = "+function_, 999999, 0.000000000000001);
+          bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.LogFunction, "f(x) = "+function_, 999999, 0.000000000000000000001);
         } else {
-          bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.AnyFunction, "f(x) = "+function_, 999999, 0.000000000000001)
+          bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.AnyFunction, "f(x) = "+function_, 999999, 0.000000000000000000001)
         }
 
         toast({
@@ -153,7 +153,7 @@ export default function Body() {
 
       toast({
         title: `Function is not computable`,
-        description: `f(x) is not defined at ${bisectionResults !== undefined ? bisectionResults.cn : "c"} which is inside [${a}, ${b}]`,
+        description: `f(c) is not defined at ${bisectionResults !== undefined ? bisectionResults.cn : "c"} which is inside [${a}, ${b}]`,
         variant: "solid",
         status: "error",
         isClosable: true,
