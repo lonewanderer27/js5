@@ -99,15 +99,15 @@ export default function Body() {
       // but for last time, let's check if the answer is infinity
       const answer: AnswerType = calculator(a, b, n, function_);
 
-      let bisectionResults;
-      if (function_.includes("log(x+1)")){
-        bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.LogFunction, "f(x) = "+function_, 999999, 0.000000000000001);
-      } else {
-        bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.AnyFunction, "f(x) = "+function_, 999999, 0.000000000000001)
-      }
-
       // if it has infinity, then let's display the c from the last row of bisection result
       if (answer.ans_si === Infinity || answer.ans_ti === Infinity || isNaN(answer.ans_si) === true || isNaN(answer.ans_ti) === true) {
+        let bisectionResults;
+        if (function_.includes("log(x+1)")){
+          bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.LogFunction, "f(x) = "+function_, 999999, 0.000000000000001);
+        } else {
+          bisectionResults = calcBisectionStandard(a, b, functionTypeEnums.AnyFunction, "f(x) = "+function_, 999999, 0.000000000000001)
+        }
+
         toast({
           title: `Function is not computable`,
           description: `f(x) is not defined at ${bisectionResults !== undefined ? bisectionResults.cn : "c"} which is inside [${a}, ${b}]`,
