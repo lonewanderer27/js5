@@ -250,19 +250,24 @@ export function calcBisectionStandard(
     }
 
     // If the f(c) is NaN or Infinity, break out of the loop
-    if (Number.isNaN(temp_d) || temp_d == Infinity){
-      break;
-    }
+    // if (Number.isNaN(temp_d) || temp_d == Infinity){
+    //   break;
+    // }
 
-    // If the number of rows is greater than 50, check the last three values of f(c)
-    if (rows.length > 50) {
+    // If the number of rows is greater than 100, check the last three values of f(c)
+    if (rows.length > 100) {
       const lastThreeValues = rows.slice(-3).map(row => row.d);
 
-      // If the last three values are all 0, break out of the loop
-      if (lastThreeValues.every(val => val === 0) || 
-          lastThreeValues.every(val => val === Infinity) || 
-          lastThreeValues.every(isNaN)) {
-          break;
+      const allSameValue = lastThreeValues.every(value =>
+        value === lastThreeValues[0]
+      );
+
+      if (allSameValue) {
+        // The last three values of f(c) are the same
+        // Break the loop or exit the program
+        console.log("Loop terminated");
+        console.log(`Since the last 3 f(c) are the same which is ${lastThreeValues[0]}}`)
+        break;
       }
     }
   }
