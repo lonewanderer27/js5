@@ -249,8 +249,21 @@ export function calcBisectionStandard(
       break;
     }
 
-    if (Number.isNaN(temp_d)){
+    // If the f(c) is NaN or Infinity, break out of the loop
+    if (Number.isNaN(temp_d) || temp_d == Infinity){
       break;
+    }
+
+    // If the number of rows is greater than 50, check the last three values of f(c)
+    if (rows.length > 50) {
+      const lastThreeValues = rows.slice(-3).map(row => row.d);
+
+      // If the last three values are all 0, break out of the loop
+      if (lastThreeValues.every(val => val === 0) || 
+          lastThreeValues.every(val => val === Infinity) || 
+          lastThreeValues.every(isNaN)) {
+          break;
+      }
     }
   }
 
