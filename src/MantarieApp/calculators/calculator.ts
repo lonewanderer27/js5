@@ -32,8 +32,10 @@ export default function calculator(a: number, b: number, n: number, function_: s
     // first loop
     if (j == 0) {
       console.log("First Loop")
-      i = 0;
-      xi = 0;
+      xi = a;
+      f_xi = execFunc(xi);
+      ti = f_xi;
+      si = f_xi;
     } 
 
     if (j >= 1) {
