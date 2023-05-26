@@ -22,6 +22,7 @@ export default function ResultTable(props: {
   customFunc?: string,
   firstDerivativeFunc?: MathNode,
   methodType: methodTypeEnums,
+  repeating?: boolean
 }){
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -141,7 +142,12 @@ export default function ResultTable(props: {
           {}
         </Table>
       </TableContainer>
-      {props.rows.slice(-1)[0].less_than_error === false && 
+      {props.rows.slice(-1)[0].less_than_error === false && props.repeating === true &&
+      <Alert severity="warning">
+        <AlertTitle>Warning</AlertTitle>
+        Iterations stopped prematurely since repeated values detected on iteration {props.rows.length}.
+      </Alert>}
+      {props.rows.slice(-1)[0].less_than_error === false &&  props.repeating === false &&
       <Alert severity="info">
         <AlertTitle>Info</AlertTitle>
         Less than E is still not true on last iteration ({props.rows.length}). <br/><br/>

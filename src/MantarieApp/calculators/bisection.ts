@@ -250,9 +250,9 @@ export function calcBisectionStandard(
     }
 
     // If the f(c) is NaN or Infinity, break out of the loop
-    // if (Number.isNaN(temp_d) || temp_d == Infinity){
-    //   break;
-    // }
+    if (Number.isNaN(temp_d) || temp_d == Infinity){
+      break;
+    }
 
     // If the number of rows is greater than 100, check the last three values of f(c)
     if (rows.length > 100) {
