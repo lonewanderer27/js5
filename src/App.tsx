@@ -1,6 +1,8 @@
 import './App.css'
 
 import {
+  Alert,
+  AlertIcon,
   Button,
   Divider,
   Heading,
@@ -20,17 +22,15 @@ import {
   Tabs,
   Text,
   VStack,
-  useDisclosure,
-  Alert,
-  AlertIcon
+  useDisclosure
 } from '@chakra-ui/react'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import { HoverCalculators, Page } from './enums'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { Suspense, lazy, useEffect, useState } from 'react'
 
-import { motion } from "framer-motion"
 import About from './About';
+import { motion } from "framer-motion"
 
 // import the apps
 const CalculogApp = lazy(() => import("./CalculogApp/CalculogApp"))
@@ -125,6 +125,15 @@ export default function App() {
       setPage(Page.Home)
     } else {
       setPage(pathname.split("/")[1] as Page)
+      if (pathname.includes("rootify")) {
+        setPage(Page.Rootify)
+      } else if (pathname.includes("polaris")) {
+        setPage(Page.Polaris)
+      } else if (pathname.includes("mantarie")) {
+        setPage(Page.Mantarie)
+      } else if (pathname.includes("calculog")) {
+        setPage(Page.Calculog)
+      }
     }
   }, [pathname])
 
