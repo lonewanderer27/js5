@@ -28,7 +28,7 @@ export default function calcNewton(
   const firstDerivative = derivative(customFunc, 'x');
 
   // Initialize the rows array
-  let rows: rowType[] = [];
+  const rows: rowType[] = [];
 
   // Declare temporary variables and initialize them with default values
   let temp_n = 0;             // Iteration number
@@ -38,6 +38,8 @@ export default function calcNewton(
   let temp_d = 0;             // New value of x
   let temp_e = 0;             // Absolute error
   let temp_less_than_error = temp_e < error; // Boolean value indicating whether error is less than tolerance
+
+  let repeating = false;
 
   // Loop for a specified number of iterations or until the absolute error is less than the tolerance
   let i = 0
@@ -96,6 +98,29 @@ export default function calcNewton(
     if (temp_less_than_error) {
       break;
     }
+
+    // If the f(c) is NaN or Infinity, break out of the loop
+    if (Number.isNaN(temp_d) || temp_d == Infinity){
+      repeating = true;
+      break;
+    }
+
+    // If the number of rows is greater than 100, check the last three values of f(c)
+    if (rows.length > 100) {
+      const lastThreeValues = rows.slice(-3).map(row => row.d);
+
+      const allSameValue = lastThreeValues.every(value =>
+        value === lastThreeValues[0]
+      );
+
+      if (allSameValue) {
+        // The last three values of f(c) are the same
+        // Break the loop or exit the program
+        console.log("Loop terminated");
+        console.log(`Since the last 3 f(c) are the same which is ${lastThreeValues[0]}}`)
+        break;
+      }
+    }
   }
 
   // compute the final answers
@@ -111,6 +136,7 @@ export default function calcNewton(
   return {
     cn: cn,
     f_cn: f_cn,
-    rows: rows
+    rows: rows,
+    repeating: repeating
   }
 }
