@@ -105,8 +105,9 @@ export default function calcNewton(
       break;
     }
 
-    // If the number of rows is greater than 100, check the last three values of f(c)
-    if (rows.length > 100) {
+    // If the number of rows is greater than 3, then we start checking the last three values of f(c)
+    // if they're the same 
+    if (rows.length >= 3) {
       const lastThreeValues = rows.slice(-3).map(row => row.d);
 
       const allSameValue = lastThreeValues.every(value =>
@@ -118,6 +119,7 @@ export default function calcNewton(
         // Break the loop or exit the program
         console.log("Loop terminated");
         console.log(`Since the last 3 f(c) are the same which is ${lastThreeValues[0]}}`)
+        repeating = true;
         break;
       }
     }
